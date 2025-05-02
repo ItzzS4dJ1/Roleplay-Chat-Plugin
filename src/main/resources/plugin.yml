@@ -1,0 +1,8 @@
+name: SadJisRolePlayChat
+version: '1.0'
+main: uz.SadJi.sadJiSRPChat.SadJiSRPChat
+api-version: '1.20'
+load: STARTUP
+authors: [ SadJi ]
+description: Provides RolePlay chat for your server.
+website: https://github.com/ItzzS4dJ1/

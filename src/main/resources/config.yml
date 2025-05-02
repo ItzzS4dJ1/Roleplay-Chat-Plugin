@@ -1,0 +1,6 @@
+NoneRPDistance: 30
+ActionDistance: 25
+EnvironmentDistance: 25
+ShoutDistance: 70
+WhisperDistance: 5
+ChatDistance: 35
