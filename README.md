@@ -10,5 +10,3 @@ Adds:
   Global messages (uses bukkit broadcasting)
 
 Fully open-source and free to use (just provide plugin's name in used plugins c: )
-
-Upcoming features: Change colors, translations, etc.
