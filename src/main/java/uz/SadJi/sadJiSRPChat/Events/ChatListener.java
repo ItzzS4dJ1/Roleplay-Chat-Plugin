@@ -2,7 +2,6 @@ package uz.SadJi.sadJiSRPChat.Events;
 
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -11,44 +10,62 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import uz.SadJi.sadJiSRPChat.SadJiSRPChat;
 
+import java.util.Objects;
+
 public final class ChatListener implements Listener {
 
     @EventHandler
     public void RP_Check(AsyncPlayerChatEvent event) {
-        FileConfiguration config = SadJiSRPChat.getPlugin().getConfig();
-        String message = event.getMessage(); // получи Сообщение
-        Player player = event.getPlayer(); // Получи отправителя
-        String plname = player.getDisplayName(); // Получи имя игрока
-        Location playerLocation = event.getPlayer().getLocation();
-        int NRPdistance = config.getInt("NoneRPDistance");
+        FileConfiguration config = SadJiSRPChat.getPlugin().getConfig(); //get the  config into specific file
+        String message = event.getMessage(); // get the msg
+        Player player = event.getPlayer(); // get sender
+        String plName = player.getDisplayName(); // get sender's name
+        Location playerLocation = event.getPlayer().getLocation(); // get sender's location to calculate distance
+
+        //Distances
+        int NRPDistance = config.getInt("NoneRPDistance");
         int ActionDistance = config.getInt("ActionDistance");
         int EnvironmentDistance = config.getInt("EnvironmentDistance");
         int ShoutDistance = config.getInt("ShoutDistance");
         int WhisperDistance = config.getInt("WhisperDistance");
         int Distance = config.getInt("ChatDistance");
 
+        //Translations
+        String WhisperMSG = config.getString("Whisper");
+        String ShoutMSG = config.getString("Shout");
+
+        //Colors
+        String hexNRP = config.getString("NRP_color");
+        String hexAction = config.getString("Action_color");
+        String hexShout = config.getString("Shout_color");
+        String hexWhisper = config.getString("Whisper_color");
+        String hexChat = config.getString("Chat_color");
+        String hexEnvironment = config.getString("Environment_color");
+        String hexGlobal = config.getString("Global_color");
+
+
+
 
 
         if (message.startsWith("%")) {
-            String[] R_Message = message.split("%%", 2);
-            for (Player pl : event.getRecipients()) {
-                if (pl.getLocation().distance(playerLocation) <= NRPdistance) {
-                    pl.sendMessage(ChatColor.of("#7e7e7e") + "NRP: " + plname + ": " + R_Message[1]);
-                    event.setCancelled(true);
-                } else event.setCancelled(true);
-                player.sendMessage("Никто вас не услышал");
+            String[] R_Message = message.split("%", 2);
+            for (Player pl : event.getRecipients()) { // start cycle
+                if (pl.getLocation().distance(playerLocation) <= NRPDistance) { //calculate distance between sender and recipients
+                    pl.sendMessage(ChatColor.of(Objects.requireNonNull(hexNRP)) + "NRP: " + plName + ": " + R_Message[1]); //send message to those who are nearby
+                    event.setCancelled(true); // cancel the message event. Needed in order to send the previous message and make it visible in specific distance
+                }
             }
 
         } else if (message.startsWith("!!")) {
             String[] R_Message = message.split("!!", 2);
-            Bukkit.broadcastMessage(ChatColor.of("#ffabec") + plname + " " + R_Message[1]);
+            Bukkit.broadcastMessage(ChatColor.of(Objects.requireNonNull(hexGlobal)) + "<"+plName + "> "+ R_Message[1]); //global msg
             event.setCancelled(true);
 
         } else if (message.startsWith("--")) {
             String[] R_Message = message.split("--", 2);
             for (Player pl : event.getRecipients()) {
                 if (pl.getLocation().distance(playerLocation) <= ActionDistance) {
-                    pl.sendMessage(ChatColor.of("#f8ffab") + "*" + plname + " " + R_Message[1] + "*");
+                    pl.sendMessage(ChatColor.of(Objects.requireNonNull(hexAction)) + "*" + plName + " " + R_Message[1] + "*");
                     event.setCancelled(true);
 
                 } else {
@@ -56,10 +73,10 @@ public final class ChatListener implements Listener {
                 }
             }
         } else if (message.startsWith("-")) {
-            String[] R_Message = message.split("%", 2);
+            String[] R_Message = message.split("-", 2);
             for (Player pl : event.getRecipients()) {
                 if (pl.getLocation().distance(playerLocation) <= EnvironmentDistance) {
-                    pl.sendMessage(ChatColor.of("#f6f6f6") + "**" + R_Message[1] + "**" + " " + "(" + plname + ")" );
+                    pl.sendMessage(ChatColor.of(Objects.requireNonNull(hexEnvironment)) + "**" + R_Message[1] + "**" + " " + "(" + plName + ")" );
                     event.setCancelled(true);
                 } else {
                     event.setCancelled(true);
@@ -69,7 +86,7 @@ public final class ChatListener implements Listener {
             String[] R_Message = message.split("!", 2);
             for (Player pl : event.getRecipients()) {
                 if (pl.getLocation().distance(playerLocation) <= ShoutDistance) {
-                    pl.sendMessage(ChatColor.of("#ff5353") + "[" + "\u041a\u0440\u0438\u043a" + "]" + " " + plname + ": " + R_Message[1]);
+                    pl.sendMessage(ChatColor.of(Objects.requireNonNull(hexShout)) + "[" + ShoutMSG + "]" + " " + plName + ": " + R_Message[1]);
                     event.setCancelled(true);
                 } else {
                     event.setCancelled(true);
@@ -79,7 +96,7 @@ public final class ChatListener implements Listener {
             String[] R_Message = message.split("-=", 1);
             for (Player pl : event.getRecipients()) {
                 if (pl.getLocation().distance(playerLocation) <= WhisperDistance) {
-                    pl.sendMessage(ChatColor.of("#313733") + "[" + "\u0428\u0435\u043f\u043e\u0442" + "]" + " " + plname + ": " + R_Message[1]);
+                    pl.sendMessage(ChatColor.of(Objects.requireNonNull(hexWhisper)) + "[" + WhisperMSG + "]" + " " + plName + ": " + R_Message[1]);
                     event.setCancelled(true);
                 } else {
                     event.setCancelled(true);
@@ -88,7 +105,7 @@ public final class ChatListener implements Listener {
         } else {
             for (Player pl : event.getRecipients()) {
                 if (pl.getLocation().distance(playerLocation) <= Distance) {
-                    pl.sendMessage(ChatColor.of("#b5d2d8") + "<" + plname + ">" + ChatColor.of("#b8cbcf") + " " + message);
+                    pl.sendMessage(ChatColor.of(Objects.requireNonNull(hexChat)) + "<" + plName + ">" + ChatColor.of("#b8cbcf") + " " + message);
                     event.setCancelled(true);
                 } else {
                     event.setCancelled(true);
