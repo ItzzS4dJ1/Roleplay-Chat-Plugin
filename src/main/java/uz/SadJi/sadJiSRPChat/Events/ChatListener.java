@@ -92,8 +92,8 @@ public final class ChatListener implements Listener {
                     event.setCancelled(true);
                 }
             }
-        } else if (message.startsWith("-=")) {
-            String[] R_Message = message.split("-=", 1);
+        } else if (message.startsWith(",")) {
+            String[] R_Message = message.split(",", 2);
             for (Player pl : event.getRecipients()) {
                 if (pl.getLocation().distance(playerLocation) <= WhisperDistance) {
                     pl.sendMessage(ChatColor.of(Objects.requireNonNull(hexWhisper)) + "[" + WhisperMSG + "]" + " " + plName + ": " + R_Message[1]);
