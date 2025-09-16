@@ -1,6 +1,7 @@
 package uz.SadJi.sadJiSRPChat;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import uz.SadJi.sadJiSRPChat.Commands.SetHex;
 import uz.SadJi.sadJiSRPChat.Events.ChatListener;
 
 import java.util.logging.Logger;
@@ -25,12 +26,13 @@ public final class SadJiSRPChat extends JavaPlugin {
         log("[=-=-=-=-=-=-==-=-=-=-=-=]");
         log("          RP Chat           ");
         log("[=-=-=-=-=-=-==-=-=-=-=-=]");
-        log("           v1.0a");
+        log("          v1.2a");
         log("[=-=-=-=-=-=-==-=-=-=-=-=]");
         log("          ENABLED");
         log("[=-=-=-=-=-=-==-=-=-=-=-=]");
 
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
+        getCommand("sethex").setExecutor(new SetHex());
     }
 
     @Override
@@ -39,7 +41,7 @@ public final class SadJiSRPChat extends JavaPlugin {
         log("[=-=-=-=-=-=-==-=-=-=-=-=]");
         log("          RP Chat           ");
         log("[=-=-=-=-=-=-==-=-=-=-=-=]");
-        log("          v1.0a");
+        log("          v1.2a");
         log("[=-=-=-=-=-=-==-=-=-=-=-=]");
         log("       For support:");
         log("    Telegram: @ItzzS4dJ1");

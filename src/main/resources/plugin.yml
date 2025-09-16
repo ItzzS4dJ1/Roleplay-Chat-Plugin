@@ -1,8 +1,12 @@
 name: SadJisRolePlayChat
-version: '1.0'
+version: '1.2a'
 main: uz.SadJi.sadJiSRPChat.SadJiSRPChat
 api-version: '1.20'
 load: STARTUP
 authors: [ SadJi ]
 description: Provides RolePlay chat for your server.
 website: https://github.com/ItzzS4dJ1/
+commands:
+  sethex:
+    usage: /sethex name type color
+    description: set a specific hex color of a specific msg type for a selected player

@@ -3,11 +3,13 @@ package uz.SadJi.sadJiSRPChat.Events;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.persistence.PersistentDataType;
 import uz.SadJi.sadJiSRPChat.SadJiSRPChat;
 
 import java.util.Objects;
@@ -21,6 +23,7 @@ public final class ChatListener implements Listener {
         Player player = event.getPlayer(); // get sender
         String plName = player.getDisplayName(); // get sender's name
         Location playerLocation = event.getPlayer().getLocation(); // get sender's location to calculate distance
+        Player p = event.getPlayer();
 
         //Distances
         int NRPDistance = config.getInt("NoneRPDistance");
@@ -43,7 +46,49 @@ public final class ChatListener implements Listener {
         String hexEnvironment = config.getString("Environment_color");
         String hexGlobal = config.getString("Global_color");
 
-
+        //Custom colors
+            //hex of NRP
+        if (!p.getPersistentDataContainer().has(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexNRP"), PersistentDataType.STRING)) {
+            p.getPersistentDataContainer().set(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexNRP"), PersistentDataType.STRING, hexNRP);
+        } else {
+            hexNRP = p.getPersistentDataContainer().get(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexNRP"), PersistentDataType.STRING);
+        }
+            //hex of Action
+        if (!p.getPersistentDataContainer().has(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexAction"), PersistentDataType.STRING)) {
+            p.getPersistentDataContainer().set(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexAction"), PersistentDataType.STRING, hexAction);
+        } else {
+            hexAction = p.getPersistentDataContainer().get(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexAction"), PersistentDataType.STRING);
+        }
+            //hex of Shout
+        if (!p.getPersistentDataContainer().has(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexShout"), PersistentDataType.STRING)) {
+            p.getPersistentDataContainer().set(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexShout"), PersistentDataType.STRING, hexShout);
+        } else {
+            hexShout = p.getPersistentDataContainer().get(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexShout"), PersistentDataType.STRING);
+        }
+            //hex of Whisper
+        if (!p.getPersistentDataContainer().has(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexWhisper"), PersistentDataType.STRING)) {
+            p.getPersistentDataContainer().set(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexWhisper"), PersistentDataType.STRING, hexWhisper);
+        } else {
+            hexWhisper = p.getPersistentDataContainer().get(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexWhisper"), PersistentDataType.STRING);
+        }
+            //hex of Chat
+        if (!p.getPersistentDataContainer().has(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexChat"), PersistentDataType.STRING)) {
+            p.getPersistentDataContainer().set(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexChat"), PersistentDataType.STRING, hexChat);
+        } else {
+            hexChat = p.getPersistentDataContainer().get(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexChat"), PersistentDataType.STRING);
+        }
+            //hex of Environment
+        if (!p.getPersistentDataContainer().has(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexEnv"), PersistentDataType.STRING)) {
+            p.getPersistentDataContainer().set(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexEnv"), PersistentDataType.STRING, hexEnvironment);
+        } else {
+            hexEnvironment = p.getPersistentDataContainer().get(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexEnv"), PersistentDataType.STRING);
+        }
+            //hex of Global
+        if (!p.getPersistentDataContainer().has(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexGlobal"), PersistentDataType.STRING)) {
+            p.getPersistentDataContainer().set(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexGlobal"), PersistentDataType.STRING, hexGlobal);
+        } else {
+            hexGlobal = p.getPersistentDataContainer().get(new NamespacedKey(SadJiSRPChat.getPlugin(), "hexGlobal"), PersistentDataType.STRING);
+        }
 
 
 
